@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-
+import { Outlet } from 'react-router-dom';
 import EventInfoContext from '../../contexts/EventInfoContext';
 
 import NavigationBar from '../../components/Dashboard/NavigationBar';
 
 import DashboardLayout from '../../layouts/Dashboard';
-import Tile from '../../components/Dashboard/Tile';
 
 export default function Dashboard() {
   const { eventInfo } = useContext(EventInfoContext);
@@ -16,12 +15,7 @@ export default function Dashboard() {
       <NavigationBar />
 
       <Container>
-        <h1>Ingresso e pagamento</h1>
-        <h2>Primeiro, escolha sua modalidade de ingresso</h2>
-        <Tiles>
-          <Tile price="250,00" title="title"></Tile>
-          <Tile price="250,00" title="title"></Tile>
-        </Tiles>
+        <Outlet />
       </Container>
     </DashboardLayout>
   );
@@ -54,12 +48,4 @@ const Container = styled.div`
     margin-top: 35px;
   }
 `;
-
-const Tiles = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 15px;
-  `;
 
