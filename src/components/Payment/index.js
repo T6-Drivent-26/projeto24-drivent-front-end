@@ -8,6 +8,8 @@ import Tile from '../Dashboard/Tile';
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
   const [selected, setSelected] = useState();
+  const [category, setCategory] = useState();
+  const [price, setPrice] = useState();
 
   useEffect(() => {
     const URL = process.env.REACT_APP_API_BASE_URL;
@@ -33,19 +35,39 @@ export default function TicketSelect() {
           category={category}
           price={price}
           active={ticketCategory === selected}
-          onClick={() => setSelected(ticketCategory)}
+          onClick={() => clickClick(ticketCategory)}
         />
       );
     });
   }
 
+  function clickClick(ticketCategory) {
+    const { category, price } = ticketCategory;
+
+    setSelected(ticketCategory);
+    setCategory(category);
+    setPrice(price);
+  }
+
+  function createCategorySummary() {
+    if (category === 'Online') {
+      return (
+        <div>
+          <p>Fechado! O total ficou em R${price}. Agora é só confirmar</p>
+        </div>
+      );
+    }
+  }
+
   const ticketCategories = createTicketCategories();
+  const categorySummary = createCategorySummary();
 
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
       <TicketInstruction>Primeiro, escolha sua modalidade de ingresso</TicketInstruction>
       <TicketOptions>{ticketCategories}</TicketOptions>
+      <div>{categorySummary}</div>
     </>
   );
 }
