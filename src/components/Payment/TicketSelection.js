@@ -8,7 +8,7 @@ export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
   const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId')));
   const [category, setCategory] = useState(window.localStorage.getItem('category') || null);
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(window.localStorage.getItem('ticketPrice') || null);
 
   useEffect(() => {
     const URL = process.env.REACT_APP_API_BASE_URL;
