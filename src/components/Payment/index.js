@@ -7,6 +7,7 @@ import Tile from '../Dashboard/Tile';
 
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
+  const [selected, setSelected] = useState();
 
   useEffect(() => {
     const URL = 'http://localhost:4000/tickets/categories';
@@ -26,7 +27,15 @@ export default function TicketSelect() {
   function createTicketCategories() {
     return categories.map((ticketCategory) => {
       const { id, category, price } = ticketCategory;
-      return <Tile key={id} category={category} price={price} />;
+      return (
+        <Tile
+          key={id}
+          category={category}
+          price={price}
+          active={ticketCategory === selected}
+          onClick={() => setSelected(ticketCategory)}
+        />
+      );
     });
   }
 

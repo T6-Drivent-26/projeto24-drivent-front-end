@@ -1,17 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function Tile({ category, price }) {
-  const [active, setActive] = useState(false);
+export default function Tile({ category, price, active, onClick }) {
   return (
-    <TileDiv
-      active={active}
-      category={category}
-      price={price}
-      onClick={() => {
-        active ? setActive(false) : setActive(true);
-      }}
-    >
+    <TileDiv active={active} category={category} price={price} onClick={onClick}>
       <h1>{category}</h1>
       <h2>R${price}</h2>
     </TileDiv>
