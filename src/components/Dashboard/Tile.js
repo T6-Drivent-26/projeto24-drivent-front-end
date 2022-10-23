@@ -1,21 +1,19 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function Tile({ title, price }) {
-  const [active, setActive] = useState(false);
+export default function Tile({ category, price, active, onClick }) {
   return (
-    <TileDiv active={active} title={title} price={price} onClick={() => {active?setActive(false):setActive(true);}}>
-      <h1>{title}</h1>
-      <h2>{price}</h2>
+    <TileDiv active={active} category={category} price={price} onClick={onClick}>
+      <h1>{category}</h1>
+      <h2>R${price}</h2>
     </TileDiv>
   );
 }
 
-const TileDiv = styled.button` 
+const TileDiv = styled.button`
   height: 145px;
   width: 145px;
   border-radius: 20px;
-  border: 1px solid #CECECE;
+  border: 1px solid #cecece;
   background-color: transparent;
   cursor: pointer;
 
@@ -25,25 +23,24 @@ const TileDiv = styled.button`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  ${props => props.active ? 'background-color: #FFEED2;' : ''}
+  ${(props) => (props.active ? 'background-color: #FFEED2;' : '')}
 
   &:hover {
-    background-color: #FFEED2;
+    background-color: #ffeed2;
   }
-  h1{
+  h1 {
     font-family: 'Roboto', sans-serif !important;
     font-weight: 400 !important;
     font-size: 16px !important;
     text-align: center !important;
     color: #454545 !important;
   }
-  h2{
+  h2 {
     font-family: 'Roboto', sans-serif !important;
     font-weight: 400 !important;
     font-size: 14px !important;
     text-align: center !important;
     color: #898989 !important;
-    margin-top: 0px !important;;
+    margin-top: 0px !important;
   }
- 
 `;
