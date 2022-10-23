@@ -7,9 +7,9 @@ import Tile from '../Dashboard/Tile';
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
 
-  const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId'))|| null);
+  const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId')) || null);
   const [category, setCategory] = useState(window.localStorage.getItem('category') || null);
-  const [price, setPrice] =useState(window.localStorage.getItem('ticketPrice') || null);
+  const [price, setPrice] = useState(window.localStorage.getItem('ticketPrice') || null);
 
   useEffect(() => {
     const URL = process.env.REACT_APP_API_BASE_URL;
@@ -63,6 +63,12 @@ export default function TicketSelect() {
             Fechado! O total ficou em <span>R${price}</span>. Agora é só confirmar
           </h2>
           <button onClick={() => toPaymentOptions()}>RESERVAR INGRESSO</button>
+        </TicketInstruction>
+      );
+    } else if (category === 'Presencial') {
+      return (
+        <TicketInstruction>
+          <h2>Ótimo! Agora escolha sua modalidade de hospedagem</h2>
         </TicketInstruction>
       );
     }
