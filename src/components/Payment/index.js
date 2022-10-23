@@ -52,9 +52,14 @@ export default function TicketSelect() {
   function createCategorySummary() {
     if (category === 'Online') {
       return (
-        <div>
-          <p>Fechado! O total ficou em R${price}. Agora é só confirmar</p>
-        </div>
+        <>
+          <div>
+            <TicketInstruction>Fechado! O total ficou em R${price}. Agora é só confirmar</TicketInstruction>
+          </div>
+          <div>
+            <button>RESERVAR INGRESSO</button>
+          </div>
+        </>
       );
     }
   }
