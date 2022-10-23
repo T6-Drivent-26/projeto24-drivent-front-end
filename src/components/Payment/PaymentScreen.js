@@ -4,12 +4,11 @@ import styled from 'styled-components';
 
 import Tile from '../Dashboard/Tile';
 
-export default function TicketSelect() {
+export default function PaymentScreen() {
   const [categories, setCategories] = useState([]);
-
-  const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId'))|| null);
-  const [category, setCategory] = useState(window.localStorage.getItem('category') || null);
-  const [price, setPrice] =useState(window.localStorage.getItem('ticketPrice') || null);
+  const [selected, setSelected] = useState();
+  const [category, setCategory] = useState();
+  const [price, setPrice] = useState();
 
   useEffect(() => {
     const URL = process.env.REACT_APP_API_BASE_URL;
@@ -34,7 +33,7 @@ export default function TicketSelect() {
           key={id}
           category={category}
           price={price}
-          active={ticketCategory.id === selected}
+          active={ticketCategory === selected}
           onClick={() => selectCategory(ticketCategory)}
         />
       );
@@ -43,12 +42,10 @@ export default function TicketSelect() {
 
   function selectCategory(ticketCategory) {
     const { category, price } = ticketCategory;
-    setSelected(ticketCategory.id);
+
+    setSelected(ticketCategory);
     setCategory(category);
     setPrice(price);
-    window.localStorage.setItem('selectedId', ticketCategory.id);
-    window.localStorage.setItem('category', category);
-    window.localStorage.setItem('ticketPrice', price);
   }
 
   function toPaymentOptions() {
