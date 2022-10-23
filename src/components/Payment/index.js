@@ -10,8 +10,8 @@ export default function TicketSelect() {
   const [selected, setSelected] = useState();
 
   useEffect(() => {
-    const URL = 'http://localhost:4000/tickets/categories';
-    const promise = axios.get(URL);
+    const URL = process.env.REACT_APP_API_BASE_URL;
+    const promise = axios.get(`${URL}/tickets/categories`);
 
     promise.then((response) => {
       const { data } = response;
