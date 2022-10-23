@@ -6,6 +6,7 @@ import Tile from '../Dashboard/Tile';
 
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
+
   const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId'))|| null);
   const [category, setCategory] = useState(window.localStorage.getItem('category') || null);
   const [price, setPrice] =useState(window.localStorage.getItem('ticketPrice') || null);
