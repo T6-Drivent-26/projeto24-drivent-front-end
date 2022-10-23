@@ -35,13 +35,13 @@ export default function TicketSelect() {
           category={category}
           price={price}
           active={ticketCategory === selected}
-          onClick={() => clickClick(ticketCategory)}
+          onClick={() => selectCategory(ticketCategory)}
         />
       );
     });
   }
 
-  function clickClick(ticketCategory) {
+  function selectCategory(ticketCategory) {
     const { category, price } = ticketCategory;
 
     setSelected(ticketCategory);
@@ -52,14 +52,10 @@ export default function TicketSelect() {
   function createCategorySummary() {
     if (category === 'Online') {
       return (
-        <>
-          <div>
-            <TicketInstruction>Fechado! O total ficou em R${price}. Agora é só confirmar</TicketInstruction>
-          </div>
-          <div>
-            <button>RESERVAR INGRESSO</button>
-          </div>
-        </>
+        <TicketInstruction>
+          <h2>Fechado! O total ficou em R${price}. Agora é só confirmar</h2>
+          <button>RESERVAR INGRESSO</button>
+        </TicketInstruction>
       );
     }
   }
@@ -70,7 +66,9 @@ export default function TicketSelect() {
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
-      <TicketInstruction>Primeiro, escolha sua modalidade de ingresso</TicketInstruction>
+      <TicketInstruction>
+        <h2>Primeiro, escolha sua modalidade de ingresso</h2>
+      </TicketInstruction>
       <TicketOptions>{ticketCategories}</TicketOptions>
       <div>{categorySummary}</div>
     </>
@@ -81,14 +79,33 @@ const StyledTypography = styled(Typography)`
   margin-bottom: 20px !important;
 `;
 
-const TicketInstruction = styled.h2`
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
-  color: #8e8e8e;
-  margin: 37px 0 17px 0;
+const TicketInstruction = styled.div`
+  h2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #8e8e8e;
+    margin: 37px 0 17px 0;
+  }
+
+  button {
+    width: 162px;
+    height: 37px;
+    background: #e0e0e0;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #000000;
+  }
 `;
 
 const TicketOptions = styled.div`
