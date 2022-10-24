@@ -8,7 +8,7 @@ import Tile from '../Dashboard/Tile';
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
 
-  const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId'))|| null);
+  const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId')) || null);
   const [category, setCategory] = useState();
   const [price, setPrice] = useState();
   const [hasHotel, setHasHotel] = useState(false);
@@ -64,6 +64,18 @@ export default function TicketSelect() {
           <button onClick={() => setToggle(false)}>RESERVAR INGRESSO</button>
         </TicketInstruction>
       );
+    } else if (category === 'Presencial') {
+      return (
+        <TicketInstruction>
+          <h2>Ótimo! Agora escolha sua modalidade de hospedagem</h2>
+        </TicketInstruction>
+      );
+    } else if (category === 'Presencial') {
+      return (
+        <TicketInstruction>
+          <h2>Ótimo! Agora escolha sua modalidade de hospedagem</h2>
+        </TicketInstruction>
+      );
     }
   }
 
@@ -72,20 +84,19 @@ export default function TicketSelect() {
 
   return (
     <>
-      <TicketSelectionContainer toggle = {toggle}>
+      <TicketSelectionContainer toggle={toggle}>
         <TicketInstruction>
           <h2>Primeiro, escolha sua modalidade de ingresso</h2>
         </TicketInstruction>
         <TicketOptions>{ticketCategories}</TicketOptions>
         <div>{categorySummary}</div>
       </TicketSelectionContainer>
-      <TicketPaymentContainer toggle = {toggle}>
+      <TicketPaymentContainer toggle={toggle}>
         <TicketInstruction>
           <h2>Ingresso escolhido</h2>
         </TicketInstruction>
         <BigTile>
-          {!hasHotel || category==='online'?<h1>{category}</h1>:
-            <h1>{category} + Com Hotel</h1>}
+          {!hasHotel || category === 'online' ? <h1>{category}</h1> : <h1>{category} + Com Hotel</h1>}
           <h2>{price}</h2>
         </BigTile>
         <TicketInstruction>
@@ -135,7 +146,7 @@ const TicketOptions = styled.div`
 `;
 
 const TicketSelectionContainer = styled.div`
- ${(props) => (props.toggle ? 'display: flex;' : 'display: none;')}
+  ${(props) => (props.toggle ? 'display: flex;' : 'display: none;')}
   flex-direction: column;
 `;
 
@@ -144,34 +155,33 @@ const TicketPaymentContainer = styled.div`
   flex-direction: column;
 `;
 
+
 const BigTile = styled.button` 
   height: 100px;
   width: 300px;
   border-radius: 20px;
-  border: 1px solid #CECECE;
+  border: 1px solid #cecece;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #FFEED2;
+  background-color: #ffeed2;
 
-  h1{
+  h1 {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 16px;
     text-align: center;
     color: #454545;
   }
-  h2{
+  h2 {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
     text-align: center;
     color: #898989;
-    margin-top: 0px;;
+    margin-top: 0px;
   }
- 
 `;
-
