@@ -155,8 +155,9 @@ const TicketPaymentContainer = styled.div`
   flex-direction: column;
 `;
 
-const BigTile = styled.button`
-  height: 145px;
+
+const BigTile = styled.button` 
+  height: 100px;
   width: 300px;
   border-radius: 20px;
   border: 1px solid #cecece;
