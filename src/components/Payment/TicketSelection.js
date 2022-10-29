@@ -8,14 +8,17 @@ import Tile from '../Dashboard/Tile';
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
 
-  const [selected, setSelected] = useState(JSON.parse(window.localStorage.getItem('selectedId')) || null);
+  const [selectedCategory, setSelectedCategory] = useState(
+    JSON.parse(window.localStorage.getItem('selectedCategoryId')) || null
+  );
   const [category, setCategory] = useState();
-  const [price, setPrice] = useState();
+  const [categoryPrice, setCategoryPrice] = useState();
   const [hasHotel, setHasHotel] = useState(false);
   const [toggle, setToggle] = useState(true);
 
+  const URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
-    const URL = process.env.REACT_APP_API_BASE_URL;
     const promise = axios.get(`${URL}/tickets/categories`);
 
     promise.then((response) => {
@@ -37,7 +40,7 @@ export default function TicketSelect() {
           key={id}
           category={category}
           price={price}
-          active={ticketCategory.id === selected}
+          active={ticketCategory.id === selectedCategory}
           onClick={() => selectCategory(ticketCategory)}
         />
       );
@@ -46,12 +49,12 @@ export default function TicketSelect() {
 
   function selectCategory(ticketCategory) {
     const { category, price } = ticketCategory;
-    setSelected(ticketCategory.id);
+    setSelectedCategory(ticketCategory.id);
     setCategory(category);
-    setPrice(price);
-    window.localStorage.setItem('selectedId', ticketCategory.id);
+    setCategoryPrice(price);
+    window.localStorage.setItem('selectedCategoryId', ticketCategory.id);
     window.localStorage.setItem('category', category);
-    window.localStorage.setItem('ticketPrice', price);
+    window.localStorage.setItem('Price', price);
   }
 
   function createCategorySummary() {
@@ -59,7 +62,7 @@ export default function TicketSelect() {
       return (
         <TicketInstruction>
           <h2>
-            Fechado! O total ficou em <span>R${price}</span>. Agora é só confirmar
+            Fechado! O total ficou em <span>R${categoryPrice}</span>. Agora é só confirmar
           </h2>
           <button onClick={() => setToggle(false)}>RESERVAR INGRESSO</button>
         </TicketInstruction>
@@ -97,7 +100,7 @@ export default function TicketSelect() {
         </TicketInstruction>
         <BigTile>
           {!hasHotel || category === 'online' ? <h1>{category}</h1> : <h1>{category} + Com Hotel</h1>}
-          <h2>{price}</h2>
+          <h2>{categoryPrice}</h2>
         </BigTile>
         <TicketInstruction>
           <h2>Pagamento</h2>
