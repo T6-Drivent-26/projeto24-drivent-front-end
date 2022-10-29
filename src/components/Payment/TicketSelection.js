@@ -87,6 +87,12 @@ export default function TicketSelect() {
     setSelectedCategory(ticketCategory.id);
     setCategory(category);
     setCategoryPrice(price);
+    setSelectedAccommodation();
+    setAccommodation();
+    setAccommodationPrice();
+    window.localStorage.removeItem('selectedAccommodationId');
+    window.localStorage.removeItem('accommodation');
+    window.localStorage.removeItem('accommodationPrice');
     window.localStorage.setItem('selectedCategoryId', ticketCategory.id);
     window.localStorage.setItem('category', category);
     window.localStorage.setItem('categoryPrice', price);
