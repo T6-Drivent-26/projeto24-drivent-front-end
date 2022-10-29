@@ -13,12 +13,14 @@ export default function TicketSelect() {
     JSON.parse(window.localStorage.getItem('selectedCategoryId')) || null
   );
   const [selectedAccommodation, setSelectedAccommodation] = useState(
-    JSON.parse(window.localStorage.getItem('selectedCategoryId')) || null
+    JSON.parse(window.localStorage.getItem('selectedAccommodationId')) || null
   );
-  const [category, setCategory] = useState();
-  const [categoryPrice, setCategoryPrice] = useState();
-  const [accommodation, setAccommodation] = useState();
-  const [accommodationPrice, setAccommodationPrice] = useState();
+  const [category, setCategory] = useState(window.localStorage.getItem('category') || null);
+  const [categoryPrice, setCategoryPrice] = useState(JSON.parse(window.localStorage.getItem('categoryPrice')) || null);
+  const [accommodation, setAccommodation] = useState(window.localStorage.getItem('accommodation') || null);
+  const [accommodationPrice, setAccommodationPrice] = useState(
+    JSON.parse(window.localStorage.getItem('accommodationPrice')) || null
+  );
   const [hasHotel, setHasHotel] = useState(false);
   const [toggle, setToggle] = useState(true);
 
