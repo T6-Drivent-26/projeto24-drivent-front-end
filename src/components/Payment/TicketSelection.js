@@ -7,12 +7,18 @@ import Tile from '../Dashboard/Tile';
 
 export default function TicketSelect() {
   const [categories, setCategories] = useState([]);
+  const [accommodations, setAccommodations] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState(
     JSON.parse(window.localStorage.getItem('selectedCategoryId')) || null
   );
+  const [selectedAccommodation, setSelectedAccommodation] = useState(
+    JSON.parse(window.localStorage.getItem('selectedCategoryId')) || null
+  );
   const [category, setCategory] = useState();
   const [categoryPrice, setCategoryPrice] = useState();
+  const [accommodation, setAccommodation] = useState();
+  const [accommodationPrice, setAccommodationPrice] = useState();
   const [hasHotel, setHasHotel] = useState(false);
   const [toggle, setToggle] = useState(true);
 
@@ -24,6 +30,20 @@ export default function TicketSelect() {
     promise.then((response) => {
       const { data } = response;
       setCategories(data);
+    });
+
+    promise.catch((err) => {
+      const message = err.response.statusText;
+      alert(message);
+    });
+  }, [toggle]);
+
+  useEffect(() => {
+    const promise = axios.get(`${URL}/tickets/accommodations`);
+
+    promise.then((response) => {
+      const { data } = response;
+      setAccommodations(data);
     });
 
     promise.catch((err) => {
@@ -47,6 +67,21 @@ export default function TicketSelect() {
     });
   }
 
+  function createTicketAccommodations() {
+    return accommodations.map((ticketAccommodation) => {
+      const { id, accommodation, price } = ticketAccommodation;
+      return (
+        <Tile
+          key={id}
+          accommodation={accommodation}
+          price={price}
+          active={ticketAccommodation.id === selectedAccommodation}
+          onClick={() => selectAccommodation(ticketAccommodation)}
+        />
+      );
+    });
+  }
+
   function selectCategory(ticketCategory) {
     const { category, price } = ticketCategory;
     setSelectedCategory(ticketCategory.id);
@@ -54,7 +89,17 @@ export default function TicketSelect() {
     setCategoryPrice(price);
     window.localStorage.setItem('selectedCategoryId', ticketCategory.id);
     window.localStorage.setItem('category', category);
-    window.localStorage.setItem('Price', price);
+    window.localStorage.setItem('categoryPrice', price);
+  }
+
+  function selectAccommodation(ticketAccommodation) {
+    const { accommodation, price } = ticketAccommodation;
+    setSelectedAccommodation(ticketAccommodation.id);
+    setAccommodation(accommodation);
+    setAccommodationPrice(price);
+    window.localStorage.setItem('selectedAccommodationId', ticketAccommodation.id);
+    window.localStorage.setItem('accommodation', accommodation);
+    window.localStorage.setItem('accommodationPrice', price);
   }
 
   function createCategorySummary() {
@@ -69,21 +114,35 @@ export default function TicketSelect() {
       );
     } else if (category === 'Presencial') {
       return (
-        <TicketInstruction>
-          <h2>Ótimo! Agora escolha sua modalidade de hospedagem</h2>
-        </TicketInstruction>
+        <>
+          <TicketInstruction>
+            <h2>Ótimo! Agora escolha sua modalidade de hospedagem</h2>
+          </TicketInstruction>
+          <TicketOptions>{ticketAccommodations}</TicketOptions>
+        </>
       );
-    } else if (category === 'Presencial') {
+    }
+  }
+
+  function createAccommodationSummary() {
+    const totalCost = categoryPrice + accommodationPrice;
+
+    if (accommodation) {
       return (
         <TicketInstruction>
-          <h2>Ótimo! Agora escolha sua modalidade de hospedagem</h2>
+          <h2>
+            Fechado! O total ficou em <span>R${totalCost}</span>. Agora é só confirmar
+          </h2>
+          <button onClick={() => setToggle(false)}>RESERVAR INGRESSO</button>
         </TicketInstruction>
       );
     }
   }
 
   const ticketCategories = createTicketCategories();
+  const ticketAccommodations = createTicketAccommodations();
   const categorySummary = createCategorySummary();
+  const accommodationSummary = createAccommodationSummary();
 
   return (
     <>
@@ -93,6 +152,7 @@ export default function TicketSelect() {
         </TicketInstruction>
         <TicketOptions>{ticketCategories}</TicketOptions>
         <div>{categorySummary}</div>
+        <div>{accommodationSummary}</div>
       </TicketSelectionContainer>
       <TicketPaymentContainer toggle={toggle}>
         <TicketInstruction>
