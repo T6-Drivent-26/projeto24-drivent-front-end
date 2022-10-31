@@ -11,6 +11,12 @@ export default function Card() {
   const [cvc, setCvc] = useState('');
   const [focus, setFocus] = useState('');
 
+  function confirmPayment() {
+    const payment = {
+      number: number
+    };
+  }
+
   return (
     <CardContainer>
       <Cards
@@ -56,6 +62,7 @@ export default function Card() {
           onFocus={e => setFocus(e.target.name)}
         />
       </form>
+      <button onClick={() => confirmPayment()}>FINALIZAR PAGAMENTO</button>
     </CardContainer>
   );
 }
@@ -63,6 +70,27 @@ export default function Card() {
 const CardContainer = styled.div`
   display: flex;
   align-items: flex-start;
+
+  button{
+    width: 200px;
+    height: 37px;
+    position: absolute;
+    left: 380px;
+    bottom: 100px;
+    background-color: #e0e0e0;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #000000;
+  }
+
   .cvc{
     width: 115px !important;
     margin-right: 0px !important;
