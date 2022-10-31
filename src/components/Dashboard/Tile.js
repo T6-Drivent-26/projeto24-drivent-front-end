@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export default function Tile({ category, price, active, onClick }) {
+export default function Tile({ category, accommodation, price, active, onClick }) {
   return (
-    <TileDiv active={active} category={category} price={price} onClick={onClick}>
+    <TileDiv active={active} category={category} accommodation={accommodation} price={price} onClick={onClick}>
       <h1>{category}</h1>
+      <h1>{accommodation}</h1>
       <h2>R${price}</h2>
     </TileDiv>
   );
