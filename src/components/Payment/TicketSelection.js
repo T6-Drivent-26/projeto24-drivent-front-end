@@ -21,7 +21,6 @@ export default function TicketSelect() {
   const [accommodationPrice, setAccommodationPrice] = useState(
     JSON.parse(window.localStorage.getItem('accommodationPrice')) || null
   );
-  const [hasHotel, setHasHotel] = useState(false);
   const [toggle, setToggle] = useState(true);
 
   const URL = process.env.REACT_APP_API_BASE_URL;
@@ -167,8 +166,8 @@ export default function TicketSelect() {
           <h2>Ingresso escolhido</h2>
         </TicketInstruction>
         <BigTile>
-          {!hasHotel || category === 'online' ? <h1>{category}</h1> : <h1>{category} + Com Hotel</h1>}
-          <h2>{categoryPrice}</h2>
+          {accommodationPrice === 0 || category === 'online' ? <h1>{category}</h1> : <h1>{category} + Com Hotel</h1>}
+          <h2>{`R$ ${accommodationPrice + categoryPrice}`}</h2>
         </BigTile>
         <TicketInstruction>
           <h2>Pagamento</h2>
